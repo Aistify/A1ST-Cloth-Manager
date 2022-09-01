@@ -15,6 +15,7 @@ Soon:tm:
 
 - [X] Make it work regardless of folder location
 - [ ] Generate Animation Controllers WD and non-WD
+- [ ] Get bones target by mesh weights
 
 # [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#changelog)Changelogs
 
