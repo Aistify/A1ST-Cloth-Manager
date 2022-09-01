@@ -11,6 +11,10 @@ Made specifically for VRChat and to be used with AvatarTools or AvatarToolsEx.
 
 Soon:tm:
 
+# [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#todolist)To Do List
+
+- [X] Make it work regardless of folder location
+- [ ] Generate Animation Controllers WD and non-WD
 
 # [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#changelog)Changelogs
 
