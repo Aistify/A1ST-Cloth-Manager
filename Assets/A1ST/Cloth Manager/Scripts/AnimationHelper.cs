@@ -13,13 +13,15 @@ namespace A1STAndCo
     {
         [HideInInspector]
         public string animationName;
+        [HideInInspector]
+        public string mainAssetPath;
         public List<GameObject> toggleOnList;
         public List<GameObject> toggleOffList;
-
+        
         public void GenerateOffAnimationClip()
         {
             if (animationName == null) animationName = "DebugAnim";
-            string assetPath = string.Format("Assets/A1ST Scripts/Animations/{0} Off.anim", animationName);
+            string assetPath = string.Format(mainAssetPath + "\\Animations\\{0} Off.anim", animationName);
 
             toggleOnList = gameObject.GetComponent<SelectionHelper>().clothingSelection;
             toggleOffList = gameObject.GetComponent<SelectionHelper>().additionalOriginalObjectsToDisable;
@@ -41,7 +43,7 @@ namespace A1STAndCo
         public void GenerateOnAnimationClip()
         {
             if (animationName == null) animationName = "DebugAnim";
-            string assetPath = string.Format("Assets/A1ST Scripts/Animations/{0} On.anim", animationName);
+            string assetPath = string.Format(mainAssetPath + "\\Animations\\{0} On.anim", animationName);
 
             toggleOnList = gameObject.GetComponent<SelectionHelper>().clothingSelection;
             toggleOffList = gameObject.GetComponent<SelectionHelper>().additionalOriginalObjectsToDisable;
