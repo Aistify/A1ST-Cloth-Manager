@@ -1,0 +1,19 @@
+﻿#if UNITY_EDITOR
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Cloth Manager - Data Store for Components
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+[Serializable]
+public class ClothManager
+{
+    public string clothManagerName;
+    public GameObject clothManagerPrefab;
+    public GameObject clothAvatar;
+}
+#endif
