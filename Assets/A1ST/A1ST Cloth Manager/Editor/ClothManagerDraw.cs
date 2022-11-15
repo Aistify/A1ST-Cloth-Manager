@@ -12,42 +12,34 @@ namespace A1STAndCo
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            SerializedProperty clothManagerName = property.FindPropertyRelative("clothManagerName");
-            SerializedProperty clothManagerPrefab = property.FindPropertyRelative("clothManagerPrefab");
-            SerializedProperty clothAvatar = property.FindPropertyRelative("clothAvatar");
+            var clothManagerName = property.FindPropertyRelative("clothManagerName");
+            var clothManagerPrefab = property.FindPropertyRelative("clothManagerPrefab");
+            var clothAvatar = property.FindPropertyRelative("clothAvatar");
 
-            Rect labelPos = new Rect(position.x, position.y, position.width, position.height);
+            var labelPos = new Rect(position.x, position.y, position.width, position.height);
 
             position = EditorGUI.PrefixLabel(
                 labelPos,
-                EditorGUIUtility.GetControlID(FocusType.Passive),
+                GUIUtility.GetControlID(FocusType.Passive),
                 new GUIContent(clothManagerName.stringValue)
             );
 
-            int indent = EditorGUI.indentLevel;
+            var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            float widthSize = position.width / 3;
+            var widthSize = position.width / 3;
             float offsetSize = 3;
 
-            Rect pos1 = new Rect(position.x, position.y,
-                widthSize - offsetSize,
-                position.height
-                );
-            
-            Rect pos2 = new Rect(
+            var pos1 = new Rect(position.x, position.y, widthSize - offsetSize, position.height);
+
+            var pos2 = new Rect(
                 position.x + widthSize * 1,
                 position.y,
                 widthSize - offsetSize,
                 position.height
-                );
-            
-            Rect pos3 = new Rect(
-                position.x + widthSize * 2,
-                position.y,
-                widthSize,
-                position.height
-                );
+            );
+
+            var pos3 = new Rect(position.x + widthSize * 2, position.y, widthSize, position.height);
 
             EditorGUI.PropertyField(pos1, clothManagerName, GUIContent.none);
             EditorGUI.PropertyField(pos2, clothManagerPrefab, GUIContent.none);

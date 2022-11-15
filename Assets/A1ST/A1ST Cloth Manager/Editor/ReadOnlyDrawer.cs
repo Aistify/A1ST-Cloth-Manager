@@ -1,13 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
- 
+
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty prop, GUIContent label)
     {
         string valueStr;
- 
+
         switch (prop.propertyType)
         {
             case SerializedPropertyType.Integer:
@@ -26,7 +26,7 @@ public class ReadOnlyDrawer : PropertyDrawer
                 valueStr = "(not supported)";
                 break;
         }
- 
-        EditorGUI.LabelField(position,label.text, valueStr);
+
+        EditorGUI.LabelField(position, label.text, valueStr);
     }
 }

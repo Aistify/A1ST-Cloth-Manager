@@ -19,16 +19,24 @@ namespace A1ST
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Button Layout starts here
-            if (GUILayout.Button("Select Objects To Be Enabled (For Debug)"))
+            if (
+                GUILayout.Button(
+                    "Reload List Data from Main Manager (This will clear current list)"
+                )
+            )
             {
                 selectionHelper.GetAllGameObjects();
+                selectionHelper.PopulateLists();
+            }
+
+            if (GUILayout.Button("Select Objects To Be Enabled (For Debug)"))
+            {
                 selectionHelper.PopulateLists();
                 selectionHelper.SelectToBeEnabled();
             }
 
             if (GUILayout.Button("Select Objects To Be Disabled (For Debug)"))
             {
-                selectionHelper.GetAllGameObjects();
                 selectionHelper.PopulateLists();
                 selectionHelper.SelectToBeDisabled();
             }

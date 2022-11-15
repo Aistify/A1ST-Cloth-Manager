@@ -1,25 +1,24 @@
 ﻿#if UNITY_EDITOR
 
-using System;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
-using System.Text.RegularExpressions;
-using Object = UnityEngine.Object;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Editor Template for A1ST namespace
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Looks for anything that derives from MonoBehaviour
-[CustomEditor(typeof(MonoBehaviour), editorForChildClasses: true)]
+[CustomEditor(typeof(MonoBehaviour), true)]
 public class BaseEditor : Editor
 {
     // Inits various variables
     private static GUIStyle _titleStyle;
     private static Texture2D _A1STLogo;
+    public bool isA1STNamespace;
     private ComponentAttribute _componentAttribute;
-    public Boolean isA1STNamespace;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +26,7 @@ public class BaseEditor : Editor
     protected virtual void OnEnable()
     {
         // Determines if the namespace of the target object belongs to A1ST
-        string targetNamespace = target.GetType().Namespace;
+        var targetNamespace = target.GetType().Namespace;
         if (!string.IsNullOrEmpty(targetNamespace))
             isA1STNamespace = targetNamespace.StartsWith("A1ST");
 
@@ -48,16 +47,17 @@ public class BaseEditor : Editor
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void LogoGUI()
     {
-        if (_A1STLogo == null){
-            string path = new System.Diagnostics.StackTrace(true).GetFrame(0).GetFileName();
-            String[] extract = Regex.Split(path, "Assets");
+        if (_A1STLogo == null)
+        {
+            var path = new StackTrace(true).GetFrame(0).GetFileName();
+            var extract = Regex.Split(path, "Assets");
             path = extract[1].TrimEnd('\\');
             path = path.Replace("\\Editor\\BaseEditor.cs", "");
             path = "Assets" + path;
 
             _A1STLogo = AssetDatabase.LoadAssetAtPath<Texture2D>(path + "/Logo/logo.png");
         }
-        
+
         if (_A1STLogo != null)
         {
             GUILayout.Space(20f);
@@ -98,10 +98,7 @@ public class BaseEditor : Editor
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
 
-                GUILayout.Box(
-                    componentAttribute.Description,
-                    (GUILayout.Width(Screen.width * .8f))
-                );
+                GUILayout.Box(componentAttribute.Description, GUILayout.Width(Screen.width * .8f));
 
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();

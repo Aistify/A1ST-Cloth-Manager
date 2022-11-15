@@ -11,7 +11,7 @@ namespace A1ST
     {
         public override void OnInspectorGUI()
         {
-            AnimationHelper animationHelper = (AnimationHelper)target;
+            var animationHelper = (AnimationHelper)target;
 
             base.OnInspectorGUI();
 

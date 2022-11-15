@@ -6,18 +6,21 @@ using UnityEngine;
 namespace A1ST
 {
     [CustomEditor(typeof(MainManager))]
-    public class MainToolManagerEditor : BaseEditor
+    public class MainManagerEditor : BaseEditor
     {
         public override void OnInspectorGUI()
         {
-            MainManager mainManager = (MainManager)target;
+            var mainManager = (MainManager)target;
 
             base.OnInspectorGUI();
 
+            GUILayout.Space(20);
+
             if (GUILayout.Button("Create Cloth Managers"))
-            {
                 mainManager.CreateClothManagers();
-            }
+
+            if (GUILayout.Button("Generate All Animations"))
+                mainManager.GenerateAllAnimations();
 
             if (isA1STNamespace)
                 LogoGUI();

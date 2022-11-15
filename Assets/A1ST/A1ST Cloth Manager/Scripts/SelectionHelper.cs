@@ -3,86 +3,96 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using VRC.SDK3.Dynamics.PhysBone.Components;
 
 namespace A1ST
 {
-    [Component(
-        "Selection Helper",
-        "Helps make selections of clothes and bones to later animate."
-    )]
+    [Component("Selection Helper", "Helps make selections of clothes and bones to later animate.")]
     public class SelectionHelper : MonoBehaviour
     {
         [Tooltip("Reference to clothing GameObject")]
         public GameObject clothAvatar;
-        
+
         [Tooltip("Overview of the GameObjects that will be toggled off. (Set Via Main Manager)")]
         public List<GameObject> originalClothes;
-        
+
         [Tooltip("Overview of GameObjects that will be toggled on.")]
         public List<GameObject> clothingSelection;
-        
+
         [Tooltip("Add any additional GameObjects to be toggled off.")]
         public List<GameObject> extraToDisable;
 
-        private List<GameObject> _originalObjectsList;
-        private List<GameObject> _clothObjectsList;
-        private List<GameObject> _mergedObjectsList;
-        
         [HideInInspector]
         public List<GameObject> objectsToDisable;
-        
+
+        private List<GameObject> _clothObjectsList;
+        private List<GameObject> _mergedObjectsList;
+
+        private List<GameObject> _originalObjectsList;
+
         public void GetAllGameObjects()
         {
+            if (transform.parent.gameObject.GetComponent<MainManager>() == null)
+            {
+                print("ERR: NO MAIN MANAGER FOUND");
+                return;
+            }
             // Init Lists
             _originalObjectsList = new List<GameObject>();
             _clothObjectsList = new List<GameObject>();
             _mergedObjectsList = new List<GameObject>();
-            extraToDisable = new List<GameObject>();
+            objectsToDisable = new List<GameObject>();
 
             // Populate Lists
             MainManager mainManager = transform.parent.gameObject.GetComponent<MainManager>();
             GetAllGameObjectsToList(mainManager.originalAvatar, _originalObjectsList);
-            GetAllGameObjectsToList(clothAvatar, _clothObjectsList);
             GetAllGameObjectsToList(mainManager.mergedAvatar, _mergedObjectsList);
-            foreach (var gameObj in extraToDisable)
-            {
-                extraToDisable.Add(gameObj);
-                GetAllGameObjectsToList(gameObj, extraToDisable);
-            }
+
+            originalClothes = new List<GameObject>();
+            List<GameObject> temp = new List<GameObject>();
+            temp = mainManager.objectsToDisable;
+            var MergedVsOriginal = new DiffCheckObj();
+            MergedVsOriginal = FindMatches(_mergedObjectsList, temp);
+            originalClothes = MergedVsOriginal.CommonListProp;
+
+            GetAllGameObjectsToList(clothAvatar, _clothObjectsList);
         }
-        
-        
-        
+
+        private void WhyIsThisBroken()
+        {
+            MainManager mainManager = transform.parent.gameObject.GetComponent<MainManager>();
+            originalClothes = mainManager.objectsToDisable;
+        }
+
         public void PopulateLists()
         {
             // Init Lists and Class Object
-            List<GameObject> commonList = new List<GameObject>();
-            List<GameObject> differenceList = new List<GameObject>();
-            List<GameObject> clothingNotFound = new List<GameObject>();
-            DiffCheckObj NewVsOld = new DiffCheckObj();
-            DiffCheckObj MergedVsDiff = new DiffCheckObj();
-            DiffCheckObj DiffVsSelect = new DiffCheckObj();
+            var differenceList = new List<GameObject>();
+            var NewVsOld = new DiffCheckObj();
+            var MergedVsDiff = new DiffCheckObj();
             clothingSelection = new List<GameObject>();
             objectsToDisable = new List<GameObject>();
-            
+
             NewVsOld = FindMatches(_clothObjectsList, _originalObjectsList);
-            
-            MainManager mainManager = transform.parent.GetComponent<MainManager>();
-            originalClothes = mainManager.originalClothObjects;
-            commonList = NewVsOld.CommonListProp;
             differenceList = NewVsOld.DifferenceListProp;
-            
+
             MergedVsDiff = FindMatches(_mergedObjectsList, differenceList);
-            
             clothingSelection = MergedVsDiff.CommonListProp;
 
-            DiffVsSelect = FindMatches(differenceList, clothingSelection);
-            
+            var MergedVsOriginal = new DiffCheckObj();
+            MergedVsOriginal = FindMatches(_mergedObjectsList, originalClothes);
+            originalClothes = new List<GameObject>();
+            originalClothes = MergedVsOriginal.CommonListProp;
+
+            var MergedVsExtra = new DiffCheckObj();
+            MergedVsExtra = FindMatches(_mergedObjectsList, extraToDisable);
+            extraToDisable = new List<GameObject>();
+            extraToDisable = MergedVsExtra.CommonListProp;
+
             objectsToDisable.AddRange(originalClothes);
             objectsToDisable.AddRange(extraToDisable);
-            clothingNotFound = DiffVsSelect.DifferenceListProp;
         }
-        
+
         public void SelectToBeEnabled()
         {
             //Selects the GameObjects
@@ -94,13 +104,7 @@ namespace A1ST
             // Selects the results
             Selection.objects = objectsToDisable.ToArray();
         }
-        
-        private class DiffCheckObj
-        {
-            public List<GameObject> CommonListProp { get; set; }
-            public List<GameObject> DifferenceListProp { get; set; }
-        }
-        
+
         private static DiffCheckObj FindMatches(
             List<GameObject> listToSearchIn,
             List<GameObject> listToFind
@@ -131,9 +135,13 @@ namespace A1ST
             }
 
             // Returns a class object containing both common and difference list
-            return new DiffCheckObj { CommonListProp = commonItemsL, DifferenceListProp = differenceItemsL };
+            return new DiffCheckObj
+            {
+                CommonListProp = commonItemsL,
+                DifferenceListProp = differenceItemsL
+            };
         }
-        
+
         private void GetAllGameObjectsToList(GameObject obj, List<GameObject> list)
         {
             // If no GameObject or List is passed in, cancel the command and return an error message
@@ -157,8 +165,12 @@ namespace A1ST
                 GetAllGameObjectsToList(child.gameObject, list);
             }
         }
+
+        private class DiffCheckObj
+        {
+            public List<GameObject> CommonListProp { get; set; }
+            public List<GameObject> DifferenceListProp { get; set; }
+        }
     }
-    
-    
 }
 #endif

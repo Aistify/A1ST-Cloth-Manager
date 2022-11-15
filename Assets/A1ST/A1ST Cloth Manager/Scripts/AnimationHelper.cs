@@ -1,11 +1,9 @@
 ﻿#if UNITY_EDITOR
 
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows;
-using Object = UnityEngine.Object;
 
 namespace A1ST
 {
@@ -13,79 +11,77 @@ namespace A1ST
     public class AnimationHelper : MonoBehaviour
     {
         // Variables
-        [ReadOnly] public string animationName;
+        [ReadOnly]
+        public string animationName;
+
         [HideInInspector]
         public string path;
-        private List<GameObject> _toggleOnList;
+
         private List<GameObject> _toggleOffList;
+        private List<GameObject> _toggleOnList;
         private string assetPath;
-        
-        public void GenerateAnimationClip(Boolean toggle)
+
+        public void GenerateAnimationClip(bool toggle)
         {
             // Get reference to Components and reload/load it's variables
-            SelectionHelper selectionHelper = gameObject.GetComponent<SelectionHelper>();
-            selectionHelper.GetAllGameObjects();
+            var selectionHelper = gameObject.GetComponent<SelectionHelper>();
             selectionHelper.PopulateLists();
 
             _toggleOnList = selectionHelper.clothingSelection;
             _toggleOffList = selectionHelper.objectsToDisable;
 
             // Check to see if the MainManager is in control of this animator
-            if (animationName == null) animationName = "DebugAnim";
-            
+            if (animationName == null)
+                animationName = "DebugAnim";
+
             // Get references to GameObjects to make toggles
             _toggleOnList = selectionHelper.clothingSelection;
             _toggleOffList = selectionHelper.objectsToDisable;
-            
+
             // Init clip object
-            AnimationClip clip = new AnimationClip();
+            var clip = new AnimationClip();
 
             // Depending on the value of toggle ...
             if (toggle)
             {
                 // Generate Path to save the clip at
-                assetPath = string.Format(
-                    path + "\\Animations\\{0} On.anim",
-                    animationName
-                );
+                assetPath = string.Format(path + "\\Animations\\{0} On.anim", animationName);
                 // Adds the GameObject toggles onto the clip object
-                ToggleList(_toggleOnList, clip, false);
-                ToggleList(_toggleOffList, clip, true);
+                ToggleList(_toggleOffList, clip, false);
+                ToggleList(_toggleOnList, clip);
             }
             else
             {
                 // Generate Path to save the clip at
-                assetPath = string.Format(
-                    path + "\\Animations\\{0} Off.anim",
-                    animationName
-                );
+                assetPath = string.Format(path + "\\Animations\\{0} Off.anim", animationName);
                 // Adds the GameObject toggles onto the clip object
-                ToggleList(_toggleOnList, clip, true);
-                ToggleList(_toggleOffList, clip, false);
+                ToggleList(_toggleOnList, clip, false);
+                ToggleList(_toggleOffList, clip);
             }
-            
+
             // Check if Animation Folder Exists
-            if (!AssetDatabase.IsValidFolder(path + "\\Animations")) AssetDatabase.CreateFolder(path, "Animations");
-            
+            if (!AssetDatabase.IsValidFolder(path + "\\Animations"))
+                AssetDatabase.CreateFolder(path, "Animations");
+
             // Checks if the Path has an already existing clip with the same name and deletes it
             if (File.Exists(assetPath))
             {
                 print("Asset already exists, deleting and remaking");
                 AssetDatabase.DeleteAsset(assetPath);
             }
-            
+
             // Creates the Animation Clip
             AssetDatabase.CreateAsset(clip, assetPath);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(assetPath));
         }
-        
+
         private void ToggleList(
             List<GameObject> listToProcess,
             AnimationClip clipToAddTo,
-            Boolean toggle = true
+            bool toggle = true
         )
         {
-            int state = 1;
+            var state = 1;
 
             if (toggle == false)
             {
@@ -93,7 +89,7 @@ namespace A1ST
 
                 foreach (var toggleObject in listToProcess)
                 {
-                    string relativePath = GetGameObjectPath(toggleObject.transform);
+                    var relativePath = GetGameObjectPath(toggleObject.transform);
                     relativePath = relativePath.Substring(relativePath.IndexOf("/") + 1);
                     clipToAddTo.SetCurve(
                         relativePath,
@@ -107,7 +103,7 @@ namespace A1ST
             {
                 foreach (var toggleObject in listToProcess)
                 {
-                    string relativePath = GetGameObjectPath(toggleObject.transform);
+                    var relativePath = GetGameObjectPath(toggleObject.transform);
                     relativePath = relativePath.Substring(relativePath.IndexOf("/") + 1);
                     clipToAddTo.SetCurve(
                         relativePath,
@@ -118,10 +114,10 @@ namespace A1ST
                 }
             }
         }
-        
+
         private static string GetGameObjectPath(Transform transform)
         {
-            string path = transform.name;
+            var path = transform.name;
             while (transform.parent != null)
             {
                 transform = transform.parent;
@@ -130,7 +126,6 @@ namespace A1ST
 
             return path;
         }
-        
     }
 }
 
