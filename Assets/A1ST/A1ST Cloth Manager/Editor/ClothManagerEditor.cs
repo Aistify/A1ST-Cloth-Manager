@@ -11,7 +11,7 @@ using VRC.SDK3.Dynamics.PhysBone.Components;
 namespace A1STCloth
 {
     [CustomEditor(typeof(ClothManager))]
-    public class AvatarDynamicsHelper1Editor : BaseEditor
+    public class AvatarDynamicsHelper1Editor : BaseClothEditor
     {
         private static GUIStyle _titleStyle;
         private bool listReplace;

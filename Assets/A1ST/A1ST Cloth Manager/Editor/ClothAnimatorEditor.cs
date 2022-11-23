@@ -10,7 +10,7 @@ using VRC.SDK3.Dynamics.PhysBone.Components;
 namespace A1STCloth
 {
     [CustomEditor(typeof(ClothAnimator))]
-    public class ClothAnimatorEditor : BaseEditor
+    public class ClothAnimatorEditor : BaseClothEditor
     {
         private bool _showWhitelist;
         private bool _showBlacklist;

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace A1STPrefab
 {
     [CustomEditor(typeof(MainPrefabManager))]
-    public class MainPrefabManagerEditor : BaseEditor
+    public class MainPrefabManagerEditor : BasePrefabEditor
     {
         public override void OnInspectorGUI()
         {

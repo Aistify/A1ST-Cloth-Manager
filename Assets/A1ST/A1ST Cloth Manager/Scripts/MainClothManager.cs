@@ -13,18 +13,15 @@ namespace A1STCloth
     [Component("A1ST Main Cloth Manager", "Used to manage and hold all other Cloth Managers")]
     public class MainClothManager : MonoBehaviour
     {
-        [Space(10)]
-        public GameObject originalAvatar;
+        [Space(10)] public GameObject originalAvatar;
 
         public List<GameObject> clothPrefabs;
 
         public GameObject mergedAvatar;
 
-        [HideInInspector]
-        public List<ClothManagerStruct> clothManagers;
+        [HideInInspector] public List<ClothManagerStruct> clothManagers;
 
-        [HideInInspector]
-        public bool showManagerList;
+        [HideInInspector] public bool showManagerList;
 
         public void CreateNewManagers()
         {
@@ -37,13 +34,13 @@ namespace A1STCloth
             if (transform.Find("Original Clothes Manager") == null)
             {
                 GenerateClothManager(originalAvatar, gameObject);
-                GameObject originalClothManager = transform
+                var originalClothManager = transform
                     .Find(originalAvatar.name + " Manager")
                     .gameObject;
                 originalClothManager.GetComponent<ClothManager>().name = "Original Clothes Manager";
             }
 
-            foreach (GameObject clothPrefab in clothPrefabs)
+            foreach (var clothPrefab in clothPrefabs)
             {
                 if (transform.Find(clothPrefab.name + " Manager") != null)
                     return;
@@ -56,12 +53,12 @@ namespace A1STCloth
 
         public void GenerateClothManager(GameObject target, GameObject parent)
         {
-            string rootPath = GetScriptRoot();
-            GameObject clothManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(
+            var rootPath = GetScriptRoot();
+            var clothManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(
                 rootPath + "\\Prefabs\\ClothManagerPrefab ( For Manual Setup ).prefab"
             );
 
-            GameObject tCManager = Instantiate(
+            var tCManager = Instantiate(
                 clothManagerPrefab,
                 Vector3.zero,
                 new Quaternion(),
@@ -70,10 +67,9 @@ namespace A1STCloth
 
             var textInfo = new CultureInfo("en-US", false).TextInfo;
             var tName = target.name;
-            tName = textInfo.ToTitleCase(tName.ToLower());
             tCManager.name = tName + " Manager";
 
-            ClothManager tclothManager = tCManager.GetComponent<ClothManager>();
+            var tclothManager = tCManager.GetComponent<ClothManager>();
             tclothManager.targetAvatar = target;
             tclothManager.mergedAvatar = mergedAvatar;
             tclothManager.GetPhysBones(true);
@@ -81,7 +77,11 @@ namespace A1STCloth
             tclothManager.GetContacts(true);
             tclothManager.GetMeshes(true);
 
-            tclothManager.ToggleObjects(false);
+            if (tclothManager.name != originalAvatar.name + " Manager")
+                tclothManager.ToggleObjects(false);
+            else
+                tclothManager.ToggleObjects(true);
+
 
             EditorGUIUtility.PingObject(tCManager);
         }
@@ -94,16 +94,16 @@ namespace A1STCloth
                 return;
             }
 
-            List<GameObject> tempL = new List<GameObject>();
+            var tempL = new List<GameObject>();
             GetAllGameObjectsToList(gameObject, tempL);
 
             clothManagers = new List<ClothManagerStruct>();
-            foreach (GameObject gameObj in tempL)
+            foreach (var gameObj in tempL)
             {
                 if (gameObj.GetComponent<ClothManager>() == null)
                     return;
 
-                ClothManagerStruct temp = new ClothManagerStruct();
+                var temp = new ClothManagerStruct();
                 temp.clothManager = gameObj.gameObject;
                 temp.clothManagerName = gameObj.name;
                 temp.clothPrefab = gameObj.GetComponent<ClothManager>().targetAvatar;

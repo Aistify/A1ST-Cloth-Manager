@@ -6,7 +6,7 @@ using UnityEngine;
 namespace A1STCloth
 {
     [CustomEditor(typeof(AvatarUtils))]
-    public class AvatarUtilsEditor : BaseEditor
+    public class AvatarUtilsEditor : BaseClothEditor
     {
         public override void OnInspectorGUI()
         {

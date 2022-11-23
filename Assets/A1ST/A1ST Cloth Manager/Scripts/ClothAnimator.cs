@@ -96,6 +96,8 @@ namespace A1STCloth
             List<GameObject> whitelistInit = new List<GameObject>();
             List<GameObject> whitelistFinal = new List<GameObject>();
 
+            ReloadList();
+            
             whitelistInit.AddRange(phsBonesList);
             whitelistInit.AddRange(collidersList);
             whitelistInit.AddRange(contactsList);

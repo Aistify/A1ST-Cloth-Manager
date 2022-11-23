@@ -8,7 +8,7 @@ using UnityEngine;
 namespace A1STCloth
 {
     [CustomEditor(typeof(MainClothManager))]
-    public class MainClothManagerEditor : BaseEditor
+    public class MainClothManagerEditor : BaseClothEditor
     {
         public override void OnInspectorGUI()
         {
