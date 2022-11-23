@@ -3,7 +3,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace A1ST
+namespace A1STCloth
 {
     [CustomEditor(typeof(AvatarUtils))]
     public class AvatarUtilsEditor : BaseEditor
@@ -20,7 +20,7 @@ namespace A1ST
             {
                 avatarUtils.SetAnchor();
                 avatarUtils.SetBounds();
-                avatarUtils.DisableClothObjects();
+                // avatarUtils.DisableClothObjects();
             }
 
             if (GUILayout.Button("Set Anchor Override"))
@@ -29,8 +29,8 @@ namespace A1ST
             if (GUILayout.Button("Set Bounds"))
                 avatarUtils.SetBounds();
 
-            if (GUILayout.Button("Disable Cloth Objects"))
-                avatarUtils.DisableClothObjects();
+            // if (GUILayout.Button("Disable Cloth Objects"))
+            // avatarUtils.DisableClothObjects();
 
             if (isA1STNamespace)
                 LogoGUI();

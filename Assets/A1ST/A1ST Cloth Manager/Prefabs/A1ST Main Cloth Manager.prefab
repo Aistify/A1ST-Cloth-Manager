@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3047243703596269588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3047243703596269586}
+  - component: {fileID: 3047243703596269589}
+  - component: {fileID: 3047243703596269587}
+  m_Layer: 0
+  m_Name: A1ST Main Cloth Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3047243703596269586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047243703596269588}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.3021145, y: -28.853184, z: 4.859393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3047243703596269589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047243703596269588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4e08d8bd6cd7a4abd04681641673e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalAvatar: {fileID: 0}
+  clothPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mergedAvatar: {fileID: 0}
+  clothManagers:
+  - clothManagerName: Original Clothes Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: White Sweater Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Maid Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Autumn Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Bunny Suit Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: China Dress Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: China Dress Fur Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Open Back Sweater Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch Big Breast Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch Default Breast Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch Small Breast Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch_Hat Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch_Shoes Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch_Sleeves_Long Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  - clothManagerName: Witch_Sleeves_Short Manager
+    clothManager: {fileID: 0}
+    clothPrefab: {fileID: 0}
+  showManagerList: 1
+--- !u!114 &3047243703596269587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047243703596269588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854290d670d9e444a8d422e36b9b29d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorOverride: {fileID: 0}

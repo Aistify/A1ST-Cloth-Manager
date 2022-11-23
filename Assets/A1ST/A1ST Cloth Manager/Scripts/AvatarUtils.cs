@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Windows;
 using System.Linq;
 
-namespace A1ST
+namespace A1STCloth
 {
     [Component("Avatar Utilities", "Extra Tools for setting up your avatar faster.")]
     public class AvatarUtils : MonoBehaviour
@@ -16,9 +16,10 @@ namespace A1ST
 
         public void SetAnchor()
         {
-            MainManager mainManager = transform.gameObject.GetComponent<MainManager>();
+            MainClothManager mainClothManager =
+                transform.gameObject.GetComponent<MainClothManager>();
             List<GameObject> mergedObjectsList = new List<GameObject>();
-            GetAllGameObjectsToList(mainManager.mergedAvatar, mergedObjectsList);
+            GetAllGameObjectsToList(mainClothManager.mergedAvatar, mergedObjectsList);
 
             if (anchorOverride == null)
                 anchorOverride = mergedObjectsList
@@ -37,9 +38,10 @@ namespace A1ST
 
         public void SetBounds()
         {
-            MainManager mainManager = transform.gameObject.GetComponent<MainManager>();
+            MainClothManager mainClothManager =
+                transform.gameObject.GetComponent<MainClothManager>();
             List<GameObject> mergedObjectsList = new List<GameObject>();
-            GetAllGameObjectsToList(mainManager.mergedAvatar, mergedObjectsList);
+            GetAllGameObjectsToList(mainClothManager.mergedAvatar, mergedObjectsList);
             Bounds newBounds = new Bounds();
             newBounds.center = Vector3.zero;
             newBounds.extents = Vector3.one;
@@ -53,21 +55,22 @@ namespace A1ST
             }
         }
 
-        public void DisableClothObjects()
-        {
-            MainManager mainManager = transform.gameObject.GetComponent<MainManager>();
-            foreach (var clothManager in mainManager.clothManagerList)
-            {
-                List<GameObject> clothingSelection = clothManager.clothManagerPrefab
-                    .GetComponent<SelectionHelper>()
-                    .clothingSelection;
-
-                foreach (GameObject gameObj in clothingSelection)
-                {
-                    gameObj.SetActive(false);
-                }
-            }
-        }
+        // public void DisableClothObjects()
+        // {
+        //     MainClothManager mainClothManager =
+        //         transform.gameObject.GetComponent<MainClothManager>();
+        //     foreach (var clothManager in mainClothManager.clothManagerList)
+        //     {
+        //         List<GameObject> clothingSelection = clothManager.clothManagerPrefab
+        //             .GetComponent<SelectionHelper>()
+        //             .clothingSelection;
+        //
+        //         foreach (GameObject gameObj in clothingSelection)
+        //         {
+        //             gameObj.SetActive(false);
+        //         }
+        //     }
+        // }
 
         private void GetAllGameObjectsToList(GameObject obj, List<GameObject> list)
         {
