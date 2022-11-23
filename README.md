@@ -6,8 +6,19 @@
 Scripts to provide you with a better time when making animations for toggling clothing.
 Made specifically for VRChat and to be used with AvatarTools or AvatarToolsEx.
 
+# [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#features)Functions
+Prefab Manager
+Used to preprocess prefabs for a smoother merge with the merger tools
 
-# [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#changelog)Documentation
+Cloth Manager + Animator
+Helps with creation of toggle animations
+You can easily make variations of an animation with very little effort
+
+Animation Propagator
+Applies an animation to all meshes selected in the list
+Useful for animating material parameters that apply to the whole avatar
+
+# [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#documentation)Documentation
 
 Soon:tm:
 
@@ -18,7 +29,9 @@ Soon:tm:
 - [ ] Get bones target by mesh weights
 
 # [](https://github.com/Aistify/A1ST-Cloth-Manager/blob/master/README.md#changelog)Changelogs
-
+[10/11/2022: v1D] Tool overhauled entirely and added a prefab manager and an animation propagator
+[10/11/2022: v1C] AvatarUtils tool addition and bug fixes
+[10/11/2022: v1B] UI Update and general user friendliness
 [01/09/2022: v1A] Released
 
 
